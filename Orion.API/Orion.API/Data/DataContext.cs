@@ -15,12 +15,16 @@ namespace Orion.API.Data
 
         /*Relación de Tablas del Proyecto*/
         public DbSet<T_TipoDocumento> T_TipoDocumentos { get; set; }
+        public DbSet<T_Usuario> T_Usuarios { get; set; }
 
         /*Campos unicos de cada tabla*/
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<T_TipoDocumento>().HasIndex(x => x.DescripcionDocumento).IsUnique();
+            modelBuilder.Entity<T_Usuario>().HasIndex(x => x.Nro_Documento).IsUnique();
+
+
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Orion.API.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public string Abreviatura { get; set; }
 
-        /* [JsonIgnore]
-         public ICollection<User> Users { get; set; }*/
+        /* [JsonIgnore]*/
+         public ICollection<T_Usuario> T_Usuario { get; set; }
     }
 }
