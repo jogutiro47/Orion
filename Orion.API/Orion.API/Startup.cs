@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Orion.API.Data;
+using Orion.API.Helpers;
 
 namespace Orion.API
 {
@@ -26,7 +27,13 @@ namespace Orion.API
             {
                 x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            services.AddScoped<ICombosHelper, CombosHelper>();
+            services.AddScoped<IConverterHelper, ConverterHelper>();
+
         }
+
+        
 
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

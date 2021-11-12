@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace Orion.API.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public string Abreviatura { get; set; }
 
-        /* [JsonIgnore]*/
-         public ICollection<T_Usuario> T_Usuario { get; set; }
+        [JsonIgnore]
+        public ICollection<T_Usuario> T_Usuario { get; set; }
     }
 }

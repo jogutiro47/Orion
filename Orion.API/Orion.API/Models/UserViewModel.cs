@@ -1,51 +1,51 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Orion.API.Data.Entities
+namespace Orion.API.Models
 {
-    public class T_Usuario
+    public class UserViewModel
     {
-        public int Id { get; set; }
+        public int  Id { get; set; }
 
         [Display(Name = "Nombres")]
         [MaxLength(50, ErrorMessage = "El campo {0} no puede tener más de {1} carácteres.")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
-        public string Nombres { get; set; }
+        public string FirstName { get; set; }
 
         [Display(Name = "Apellidos")]
         [MaxLength(50, ErrorMessage = "El campo {0} no puede tener más de {1} carácteres.")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
-        public string Apellidos { get; set; }
+        public string LastName { get; set; }
 
-        [Display(Name = "Tipo de documento")]
-        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
-        public T_TipoDocumento IdDocumento { get; set; }
-
-        [Display(Name = "Identificación")]
+        [Display(Name = "Nro. Identificación")]
         [MaxLength(20, ErrorMessage = "El campo {0} no puede tener más de {1} carácteres.")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
-        public string Nro_Documento { get; set; }
+        public string Document { get; set; }
 
         [Display(Name = "Dirección")]
         [MaxLength(100, ErrorMessage = "El campo {0} no puede tener más de {1} carácteres.")]
-        public string Direccion { get; set; }
+        public string Address { get; set; }
 
-        [Display(Name = "Telefono")]
+        [Display(Name = "Teléfono")]
         [MaxLength(20, ErrorMessage = "El campo {0} no puede tener más de {1} carácteres.")]
-        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
-        public string Telefono { get; set; }
+        public string PhoneNumber { get; set; }
 
         [Display(Name = "Email")]
         [EmailAddress(ErrorMessage = "Debes introducir un email válido.")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public string Email { get; set; }
 
-        [Display(Name = "Usuario")]
-        public string FullName => $"{Nombres} {Apellidos}";
 
-       
+        [Display(Name = "Tipo de documento")]
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un tipo de documento.")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
+        public int DocumentTypeId { get; set; }
+
+        public IEnumerable<SelectListItem> DescripcionDocumento { get; set; }
+
     }
 }
