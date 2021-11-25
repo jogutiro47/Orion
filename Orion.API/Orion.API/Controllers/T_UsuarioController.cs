@@ -22,13 +22,12 @@ namespace Orion.API.Controllers
             _converterHelper = converterHelper;
         }
 
-          public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             return View(await _context.T_Usuarios.ToListAsync());
         }
 
 
-        // GET: T_Usuario/Create
         public IActionResult Create()
         {
             UserViewModel model = new UserViewModel
@@ -40,7 +39,7 @@ namespace Orion.API.Controllers
                 DescripcionTratamiento = _combosHelper.GetComboTratamientoTypes(),
                 DescripcionFuenteContacto = _combosHelper.GetComboFuenteContactoTypes()
 
-        };
+            };
 
             return View(model);
         }
@@ -56,7 +55,7 @@ namespace Orion.API.Controllers
                 {
                     T_Usuario t_Usuario = await _converterHelper.ToUserAsync(model, true);
 
-                     _context.Add(t_Usuario);
+                    _context.Add(t_Usuario);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
 
@@ -89,7 +88,6 @@ namespace Orion.API.Controllers
             model.DescripcionFuenteContacto = _combosHelper.GetComboFuenteContactoTypes();
             return View(model);
         }
-
 
         public async Task<IActionResult> Edit(int? id)
         {
@@ -127,7 +125,7 @@ namespace Orion.API.Controllers
                     T_Usuario t_Usuario = await _converterHelper.ToUserAsync(userViewModel, false);
                     _context.T_Usuarios.Update(t_Usuario);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index), new { id = userViewModel.Id});
+                    return RedirectToAction(nameof(Index), new { id = userViewModel.Id });
                 }
                 catch (DbUpdateException dbUpdateException)
                 {
@@ -170,31 +168,92 @@ namespace Orion.API.Controllers
             return RedirectToAction(nameof(Index), new { id = t_Usuario.Id });
         }
 
-        /*
-
         public async Task<IActionResult> IndexPaciente(int? id)
         {
-           /if (id == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
             T_Usuario t_detalleusuario = await _context.T_Usuarios
+                 .Include(x => x.T_Citas)
+                 .ThenInclude(x => x.Id_Medico)
+                 .Include(x => x.IdDocumento)
+                 .Include(x => x.IdEps)
+                 .Include(x => x.IdGenero)
+                 .Include(x => x.IdTratamiento)
+                 .Include(x => x.IdVinculacion)
+                 .Include(x => x.IdFuenteContacto)
                .FirstOrDefaultAsync(x => x.Id == id);
+
             if (t_detalleusuario == null)
             {
                 return NotFound();
             }
 
+
             return View(t_detalleusuario);
         }
-           */
 
 
+        public async Task<IActionResult> AddCita(int? id)
+        {
+            CitaViewModel model = new CitaViewModel
+            {
+           
+                DescripcionMedico = _combosHelper.GetComboMedicoTypes()
+
+            };
+
+            T_Usuario t_Usuario = await _context.T_Usuarios.FindAsync(id);
+            if (t_Usuario == null)
+            {
+                return NotFound();
+            }
+
+            model.PacienteTypeId = t_Usuario.Id;
+
+            return View(model);
+        }
 
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddCita(CitaViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    T_Cita t_Cita = await _converterHelper.ToCitaAsync(model, true);
+                    _context.Add(t_Cita);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(IndexPaciente));
+                }
+
+                catch (DbUpdateException dbUpdateException)
+                {
+                    if (dbUpdateException.InnerException.Message.Contains("duplicate"))
+                    {
+                        ModelState.AddModelError(string.Empty, "Ya existe esta Cita regsitrada");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, dbUpdateException.InnerException.Message);
+                    }
+                }
+                catch (Exception exception)
+                {
+                    ModelState.AddModelError(string.Empty, exception.Message);
+                }
 
 
+                return RedirectToAction(nameof(IndexPaciente));
+            }
+            model.DescripcionMedico = _combosHelper.GetComboMedicoTypes();
+
+            return View(model);
+        }
 
     }
 }

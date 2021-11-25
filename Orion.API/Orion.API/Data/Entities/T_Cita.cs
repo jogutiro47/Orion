@@ -14,10 +14,21 @@ namespace Orion.API.Data.Entities
 
         [Display(Name = "Fecha Cita")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm tt}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm tt}")]
         public DateTime Date { get; set; }
 
-        [Display(Name = "Fecha_Hora")]
+        
+        [Display(Name = "Hora Inicio")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
+        [DisplayFormat(DataFormatString = "{0:hh:mm tt}")]
+        public DateTime HoraInicio { get; set; }
+
+        [Display(Name = "Hora Final")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
+        [DisplayFormat(DataFormatString = "{0:hh:mm tt}")]
+        public DateTime HoraFinal { get; set; }
+
+        [Display(Name = "Fecha_LocalTime")]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm tt}")]
         public DateTime DateLocal => Date.ToLocalTime();
 
@@ -33,6 +44,9 @@ namespace Orion.API.Data.Entities
         [DataType(DataType.MultilineText)]
         public string Observacion { get; set; }
 
+        [Display(Name = "Estado_Cita")]
+       /* [Required(ErrorMessage = "El campo {0} es obligatorio.")]*/
+        public T_EstadoCita IdEstadoCita { get; set; }
 
 
     }

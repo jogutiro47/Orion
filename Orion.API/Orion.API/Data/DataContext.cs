@@ -11,6 +11,7 @@ namespace Orion.API.Data
 
         /*Relación de Tablas del Proyecto*/
         public DbSet<T_Cita> t_Citas { get; set; }
+        public DbSet<T_EstadoCita> T_EstadoCitas { get; set; }
         public DbSet<T_TipoDocumento> T_TipoDocumentos { get; set; }
         public DbSet<T_Usuario> T_Usuarios { get; set; }
         public DbSet<T_Genero> T_Generos { get; set; }
@@ -27,6 +28,7 @@ namespace Orion.API.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<T_TipoDocumento>().HasIndex(x => x.DescripcionDocumento).IsUnique();
+            modelBuilder.Entity<T_EstadoCita>().HasIndex(x => x.Desc_EstadoCita).IsUnique();
             modelBuilder.Entity<T_Usuario>().HasIndex(x => x.Nro_Documento).IsUnique();
             modelBuilder.Entity<T_Genero>().HasIndex(x => x.DescGenero).IsUnique();
             modelBuilder.Entity<T_EPS>().HasIndex(x => x.DescEPS).IsUnique();

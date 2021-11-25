@@ -26,6 +26,7 @@ namespace Orion.API.Helpers
                 Id = isNew ? 0 : model.Id,
                 Date = model.Date,
                 Id_Medico = await _context.t_Medicos.FindAsync(model.MedicoTypeId),
+                Id_Usuario = await _context.T_Usuarios.FindAsync(model.PacienteTypeId),
                 Observacion = model.Observacion
             };
         }
