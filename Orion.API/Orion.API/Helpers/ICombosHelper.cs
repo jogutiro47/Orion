@@ -10,5 +10,14 @@ namespace Orion.API.Helpers
     {
         IEnumerable<SelectListItem> GetComboDocumentTypes();
 
+        IEnumerable<SelectListItem> GetComboGeneroTypes();
+        IEnumerable<SelectListItem> GetComboEPSTypes();
+        IEnumerable<SelectListItem> GetComboTipoVinculacionTypes();
+        IEnumerable<SelectListItem> GetComboTratamientoTypes();
+        IEnumerable<SelectListItem> GetComboFuenteContactoTypes();
+
+        IEnumerable<SelectListItem> GetComboMedicoTypes();
+
+
     }
 }

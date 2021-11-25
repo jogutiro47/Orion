@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Orion.API.Data.Entities
@@ -46,6 +47,26 @@ namespace Orion.API.Data.Entities
         [Display(Name = "Usuario")]
         public string FullName => $"{Nombres} {Apellidos}";
 
-       
+        [Display(Name = "Genero")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
+        public T_Genero IdGenero{ get; set; }
+
+        [Display(Name = "EPS")]
+        public T_EPS IdEps { get; set; }
+
+        [Display(Name = "Tipo Vinculación")]
+        public T_TipoVinculation IdVinculacion { get; set; }
+
+        [Display(Name = "Tratamiento")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
+        public T_Tratamiento IdTratamiento { get; set; }
+
+        [Display(Name = "Fuente Contacto")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
+        public T_FuenteContacto IdFuenteContacto { get; set; }
+
+        [JsonIgnore]
+        public ICollection<T_Cita> T_Citas { get; set; }
+
     }
 }

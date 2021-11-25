@@ -11,7 +11,8 @@ namespace Orion.API.Helpers
 
     {
         Task<T_Usuario> ToUserAsync(UserViewModel model, bool isNew);
-        
+        Task<T_Cita> ToCitaAsync(CitaViewModel model, bool isNew);
+
         UserViewModel ToUserViewModel(T_Usuario t_Usuario);
 
 

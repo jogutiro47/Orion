@@ -47,5 +47,41 @@ namespace Orion.API.Models
 
         public IEnumerable<SelectListItem> DescripcionDocumento { get; set; }
 
+
+
+        [Display(Name = "Tipo de Genero")]
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar tipo de genero...")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
+        public int GeneroTypeId { get; set; }
+
+        public IEnumerable<SelectListItem> DescripcionGenero { get; set; }
+
+
+        [Display(Name = "EPS")]
+        [Range(1, int.MaxValue, ErrorMessage = "Selecciona una EPS...")]
+        public int EPSTypeId { get; set; }
+
+        public IEnumerable<SelectListItem> DescripcionEPS { get; set; }
+
+        [Display(Name = "Tipo de Vinculación")]
+        [Range(1, int.MaxValue, ErrorMessage = "Seleccione tipo de vinculación...")]
+        public int TipoVinculationTypeId { get; set; }
+
+        public IEnumerable<SelectListItem> DescripcionTipoVinculacion { get; set; }
+
+        [Display(Name = "Tratamiento")]
+        [Range(1, int.MaxValue, ErrorMessage = "Seleccione tratamineto...")]
+        public int TratamientoTypeId { get; set; }
+
+        public IEnumerable<SelectListItem> DescripcionTratamiento { get; set; }
+
+        [Display(Name = "Fuente Contacto")]
+        [Range(1, int.MaxValue, ErrorMessage = "Seleccione fuente de contacto...")]
+        public int FuenteContactoTypeId { get; set; }
+
+        public IEnumerable<SelectListItem> DescripcionFuenteContacto { get; set; }
+
+
+
     }
 }

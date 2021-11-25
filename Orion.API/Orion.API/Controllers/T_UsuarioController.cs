@@ -22,8 +22,7 @@ namespace Orion.API.Controllers
             _converterHelper = converterHelper;
         }
 
-        // GET: T_Usuario
-        public async Task<IActionResult> Index()
+          public async Task<IActionResult> Index()
         {
             return View(await _context.T_Usuarios.ToListAsync());
         }
@@ -34,8 +33,14 @@ namespace Orion.API.Controllers
         {
             UserViewModel model = new UserViewModel
             {
-                DescripcionDocumento = _combosHelper.GetComboDocumentTypes()
-            };
+                DescripcionDocumento = _combosHelper.GetComboDocumentTypes(),
+                DescripcionGenero = _combosHelper.GetComboGeneroTypes(),
+                DescripcionEPS = _combosHelper.GetComboEPSTypes(),
+                DescripcionTipoVinculacion = _combosHelper.GetComboTipoVinculacionTypes(),
+                DescripcionTratamiento = _combosHelper.GetComboTratamientoTypes(),
+                DescripcionFuenteContacto = _combosHelper.GetComboFuenteContactoTypes()
+
+        };
 
             return View(model);
         }
@@ -51,12 +56,7 @@ namespace Orion.API.Controllers
                 {
                     T_Usuario t_Usuario = await _converterHelper.ToUserAsync(model, true);
 
-                    /* _context.T_Usuarios.Add(t_Usuario);
-                     _context.T_Usuarios.Update(t_Usuario);
-                     await _context.SaveChangesAsync();*/
-
-
-                    _context.Add(t_Usuario);
+                     _context.Add(t_Usuario);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
 
@@ -82,6 +82,11 @@ namespace Orion.API.Controllers
                 return RedirectToAction(nameof(Index));
             }
             model.DescripcionDocumento = _combosHelper.GetComboDocumentTypes();
+            model.DescripcionGenero = _combosHelper.GetComboGeneroTypes();
+            model.DescripcionEPS = _combosHelper.GetComboEPSTypes();
+            model.DescripcionTipoVinculacion = _combosHelper.GetComboTipoVinculacionTypes();
+            model.DescripcionTratamiento = _combosHelper.GetComboTratamientoTypes();
+            model.DescripcionFuenteContacto = _combosHelper.GetComboFuenteContactoTypes();
             return View(model);
         }
 
@@ -164,6 +169,29 @@ namespace Orion.API.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index), new { id = t_Usuario.Id });
         }
+
+        /*
+
+        public async Task<IActionResult> IndexPaciente(int? id)
+        {
+           /if (id == null)
+            {
+                return NotFound();
+            }
+
+            T_Usuario t_detalleusuario = await _context.T_Usuarios
+               .FirstOrDefaultAsync(x => x.Id == id);
+            if (t_detalleusuario == null)
+            {
+                return NotFound();
+            }
+
+            return View(t_detalleusuario);
+        }
+           */
+
+
+
 
 
 

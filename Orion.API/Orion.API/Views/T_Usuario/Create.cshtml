@@ -6,7 +6,7 @@
 
 <h2>Crear</h2>
 
-<h4>Usuario</h4>
+<h4>Paciente</h4>
 <hr />
 <div class="row">
     <div class="col-md-12">
@@ -59,7 +59,53 @@
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
                 </div>
-                
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="GeneroTypeId" class="control-label"></label>
+                        <select asp-for="GeneroTypeId" asp-items="Model.DescripcionGenero" class="form-control"></select>
+                        <span asp-validation-for="GeneroTypeId" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="EPSTypeId" class="control-label"></label>
+                        <select asp-for="EPSTypeId" asp-items="Model.DescripcionEPS" class="form-control"></select>
+                        <span asp-validation-for="EPSTypeId" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="TipoVinculationTypeId" class="control-label"></label>
+                        <select asp-for="TipoVinculationTypeId" asp-items="Model.DescripcionTipoVinculacion" class="form-control"></select>
+                        <span asp-validation-for="TipoVinculationTypeId" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="TratamientoTypeId" class="control-label"></label>
+                        <select asp-for="TratamientoTypeId" asp-items="Model.DescripcionTratamiento" class="form-control"></select>
+                        <span asp-validation-for="TratamientoTypeId" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="FuenteContactoTypeId" class="control-label"></label>
+                        <select asp-for="FuenteContactoTypeId" asp-items="Model.DescripcionFuenteContacto" class="form-control"></select>
+                        <span asp-validation-for="FuenteContactoTypeId" class="text-danger"></span>
+                    </div>
+
+                </div>
+
             </div>
 
 

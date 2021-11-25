@@ -19,6 +19,17 @@ namespace Orion.API.Helpers
             _combosHelper = combosHelper;
         }
 
+        public async Task<T_Cita> ToCitaAsync(CitaViewModel model, bool isNew)
+        {
+            return new T_Cita
+            {
+                Id = isNew ? 0 : model.Id,
+                Date = model.Date,
+                Id_Medico = await _context.t_Medicos.FindAsync(model.MedicoTypeId),
+                Observacion = model.Observacion
+            };
+        }
+
         public async Task<T_Usuario> ToUserAsync(UserViewModel model, bool isNew)
         {
             return new T_Usuario
@@ -27,6 +38,11 @@ namespace Orion.API.Helpers
                 Nombres = model.FirstName,
                 Apellidos = model.LastName,
                 IdDocumento = await _context.T_TipoDocumentos.FindAsync(model.DocumentTypeId),
+                IdGenero = await _context.T_Generos.FindAsync(model.GeneroTypeId),
+                IdEps = await _context.t_Eps.FindAsync(model.EPSTypeId),
+                IdVinculacion = await _context.t_TipoVinculations.FindAsync(model.TipoVinculationTypeId),
+                IdTratamiento = await _context.t_Tratamientos.FindAsync(model.TratamientoTypeId),
+                IdFuenteContacto = await _context.t_FuenteContactos.FindAsync(model.FuenteContactoTypeId),
                 Nro_Documento = model.Document,
                 Direccion = model.Address,
                 Telefono = model.PhoneNumber,
@@ -43,6 +59,11 @@ namespace Orion.API.Helpers
                 LastName = t_Usuario.Apellidos,
                 DocumentTypeId= t_Usuario.IdDocumento.Id,
                 DescripcionDocumento = _combosHelper.GetComboDocumentTypes(),
+                DescripcionGenero = _combosHelper.GetComboGeneroTypes(),
+                DescripcionEPS = _combosHelper.GetComboEPSTypes(),
+                DescripcionTipoVinculacion = _combosHelper.GetComboTipoVinculacionTypes(),
+                DescripcionTratamiento = _combosHelper.GetComboTratamientoTypes(),
+                DescripcionFuenteContacto = _combosHelper.GetComboFuenteContactoTypes(),
                 Document = t_Usuario.Nro_Documento,
                 Address = t_Usuario.Direccion,
                 Email = t_Usuario.Email,
