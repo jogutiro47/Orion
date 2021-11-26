@@ -45,7 +45,7 @@ namespace Orion.API.Data.Entities
         public string Observacion { get; set; }
 
         [Display(Name = "Estado_Cita")]
-       /* [Required(ErrorMessage = "El campo {0} es obligatorio.")]*/
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public T_EstadoCita IdEstadoCita { get; set; }
 
 
