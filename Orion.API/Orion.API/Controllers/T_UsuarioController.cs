@@ -178,6 +178,8 @@ namespace Orion.API.Controllers
             T_Usuario t_detalleusuario = await _context.T_Usuarios
                  .Include(x => x.T_Citas)
                  .ThenInclude(x => x.Id_Medico)
+                 .Include(x => x.T_Citas)
+                 .ThenInclude(x => x.IdEstadoCita)
                  .Include(x => x.IdDocumento)
                  .Include(x => x.IdEps)
                  .Include(x => x.IdGenero)
@@ -200,18 +202,21 @@ namespace Orion.API.Controllers
         {
             CitaViewModel model = new CitaViewModel
             {
-           
                 DescripcionMedico = _combosHelper.GetComboMedicoTypes()
-
             };
 
-            T_Usuario t_Usuario = await _context.T_Usuarios.FindAsync(id);
+            T_Usuario t_Usuario = await _context.T_Usuarios
+            .Include(x => x.T_Citas)
+            .ThenInclude(x => x.IdEstadoCita)
+            .FirstOrDefaultAsync(x => x.Id == id);
+
             if (t_Usuario == null)
             {
                 return NotFound();
             }
 
             model.PacienteTypeId = t_Usuario.Id;
+            model.TypeEstadoCita = 4;
 
             return View(model);
         }
@@ -228,7 +233,7 @@ namespace Orion.API.Controllers
                     T_Cita t_Cita = await _converterHelper.ToCitaAsync(model, true);
                     _context.Add(t_Cita);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(IndexPaciente));
+                    return RedirectToAction(nameof(IndexPaciente), new { id = model.PacienteTypeId });
                 }
 
                 catch (DbUpdateException dbUpdateException)

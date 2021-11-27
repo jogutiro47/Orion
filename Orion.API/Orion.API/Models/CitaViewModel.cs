@@ -44,5 +44,11 @@ namespace Orion.API.Models
         [Display(Name = "Observación")]
         [DataType(DataType.MultilineText)]
         public string Observacion { get; set; }
+
+        [Display(Name = "Estado_Cita")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
+        public int TypeEstadoCita { get; set; }
+
+
     }
 }

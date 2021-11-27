@@ -14,11 +14,24 @@
         <form asp-action="AddCita" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="PacienteTypeId" />
+            <input type="hidden" asp-for="TypeEstadoCita" />
 
             <div class="form-group">
                 <label asp-for="Date" class="control-label"></label>
                 <input asp-for="Date" class="form-control" />
                 <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="HoraInicio" class="control-label"></label>
+                <input asp-for="HoraInicio" class="form-control" />
+                <span asp-validation-for="HoraInicio" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="HoraFinal" class="control-label"></label>
+                <input asp-for="HoraFinal" class="form-control" />
+                <span asp-validation-for="HoraFinal" class="text-danger"></span>
             </div>
 
             <div class="form-group">
@@ -38,7 +51,7 @@
 
             <div class="form-group">
                 <input type="submit" value="Guardar" class="btn btn-primary" />
-                <a asp-action="IndexPaciente" asp-route-id="PacienteTypeId" class="btn btn-success">Regresar</a>
+                <a asp-action="IndexPaciente" asp-route-id="@Model.PacienteTypeId" class="btn btn-success">Regresar</a>
             </div>
         </form>
 </div>
